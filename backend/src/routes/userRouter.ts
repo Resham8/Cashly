@@ -4,6 +4,7 @@ import prisma from "../lib/prismaClient";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import bcryt from "bcrypt";
+import authMiddleware from "../middleware/authMiddleware";
 dotenv.config();
 
 const userRouter = Router();
@@ -18,6 +19,12 @@ const signUpSchema = z.object({
 const loginSchema = z.object({
   username: z.string().min(3),
   password: z.string().min(3).max(8),
+});
+
+const updateSchema = z.object({
+  password: z.string().min(3).max(8),
+  firstName: z.string(),
+  lastName: z.string(),
 });
 
 userRouter.post("/signup", async (req, res) => {
@@ -104,6 +111,80 @@ userRouter.post("/login", async (req, res) => {
   res.status(200).json({
     message: "User created successfully",
     token: token,
+  });
+});
+
+userRouter.put("/", authMiddleware, async (req, res) => {
+  const { password, firstName, lastName } = req.body;
+  const userId = req.userId;
+
+  const { success } = updateSchema.safeParse(req.body);
+
+  if (!success) {
+    res.status(411).json({ message: "Error while updating information" });
+    return;
+  }
+
+  const existingUser = await prisma.user.findFirst({
+    where: {
+      id: userId,
+    },
+  });
+
+  if (!existingUser) {
+    res.status(411).json({ message: "Error while updating information" });
+    return;
+  }
+
+  const updateData = {
+    ...(firstName && { firstName }),
+    ...(lastName && { lastName }),
+  };
+
+  if (password) {
+    const upHashPwd = await bcryt.hash(password, 4);
+    updateData.password = upHashPwd;
+  }
+
+  const user = await prisma.user.update({
+    where: {
+      id: userId,
+    },
+    data: updateData,
+  });
+
+  res.status(200).json({
+    message: "Updated successfully",
+  });
+});
+
+userRouter.get("/bulk", async (req, res) => {
+  const filter = req.query.filter as string || "";
+
+  const filteredUser = await prisma.user.findMany({
+    omit: {
+      password: true,
+    },
+    where: {
+      OR: [
+        {
+          firstName: {
+            contains: filter,
+            mode: "insensitive",
+          },
+        },
+        {
+          lastName: {
+            contains: filter,
+            mode: "insensitive",
+          },
+        },
+      ],
+    },
+  });
+
+  res.json({
+    users: filteredUser,
   });
 });
 

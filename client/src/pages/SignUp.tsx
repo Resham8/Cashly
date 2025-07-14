@@ -22,7 +22,7 @@ export default function SignUp() {
         lastName,
         password,
       });
-      if(res.data){
+      if (res.data) {
         navigate("/login");
       }
     } catch (error) {
@@ -32,8 +32,8 @@ export default function SignUp() {
 
   return (
     <>
-      <div className="flex justify-center items-center bg-slate-300 h-screen w-screen">
-        <div className="w-80 bg-white rounded-xl text-center h-max px-6 py-3">
+      <div className="flex justify-center items-center bg-surface h-screen w-screen">
+        <div className="w-96 bg-on-surface rounded-xl text-center h-max px-6 py-3">
           <Heading label="Sign Up" />
           <SubHeading label="Enter your information to create an account" />
           <InputBox
@@ -56,7 +56,9 @@ export default function SignUp() {
             placeholder="123456"
             onChange={(e) => setPassword(e.target.value)}
           />
-          <Button label={"Sign Up"} onClick={handleSignup} />
+          <div className="py-4">
+            <Button label={"Sign Up"} onClick={handleSignup} variant="secondary" fullWidth={true} size="sm" />
+          </div>
           <BottomWarning
             label="Already have an account?"
             text="Login"

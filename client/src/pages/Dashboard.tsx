@@ -24,10 +24,16 @@ export default function Dashboard() {
   }, [balance]);
 
   return (
-    <div className="h-screen w-screen">
+    <div
+      className="h-screen w-screen bg-[linear-gradient(135deg,_#e2ecf3,_#cfe7f1,_#b3dfee)]
+
+"
+    >
       <AppBar />
-      <Balance value={balance} />
-      <UsersComponents />
+      <div className="px-96">
+        <Balance value={balance} />
+        <UsersComponents />
+      </div>
     </div>
   );
 }

@@ -21,8 +21,8 @@ export default function Login() {
   }
   return (
     <>
-      <div className="flex justify-center items-center bg-slate-300 h-screen w-screen">
-        <div className="w-80 bg-white rounded-xl text-center h-max px-6 py-3">
+      <div className="flex justify-center items-center bg-surface h-screen w-screen">
+        <div className="w-96 bg-on-surface rounded-xl text-center h-max px-6 py-3">
           <Heading label="LogIn" />
           <SubHeading label="Enter your credentials to access your account" />
           <InputBox
@@ -35,7 +35,9 @@ export default function Login() {
             placeholder="123456"
             onChange={(e) => setPassword(e.target.value)}
           />
-          <Button label={"LogIn"} onClick={handleLogin} />
+          <div className="py-4">
+            <Button label={"Login"} onClick={handleLogin} variant="secondary" size="sm" fullWidth={true} />
+          </div>
           <BottomWarning
             label="Didn't have an account?"
             text="Sign Up"

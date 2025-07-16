@@ -53,7 +53,7 @@ export function NavBar() {
         className="transition-all duration-300 bg-[#0a0d14] rounded-xl py-3 px-5 flex justify-between items-center shadow-md"
       >
         <div className="flex items-center gap-4">
-          <div className="bg-background p-4 rounded-full transition-transform hover:rotate-12">
+          <div className="bg-surface p-4 rounded-full transition-transform hover:rotate-12">
             <Wallet stroke="#20d3ee" />
           </div>
           <span className="text-white text-2xl font-semibold">Cashly</span>

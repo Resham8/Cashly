@@ -169,7 +169,7 @@ export const HeroSection: React.FC<BackgroundPathsProps> = ({
   }, [words]);
 
   return (
-    <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-background">
+    <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-surface">
       <div className="absolute inset-0">
         <FloatingPaths position={1} />
         <FloatingPaths position={-1} />
@@ -187,7 +187,7 @@ export const HeroSection: React.FC<BackgroundPathsProps> = ({
                   <span
                     key={`${wordIndex}-${letterIndex}`}
                     data-letter={`${wordIndex}-${letterIndex}`}
-                    className="inline-block text-transparent bg-clip-text 
+                    className="inline-block text-transparent bg-clip-on-surface 
                     bg-gradient-to-r from-neutral-900 to-neutral-700/80 
                     dark:from-white dark:to-white/80"
                   >

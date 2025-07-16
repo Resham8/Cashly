@@ -188,4 +188,21 @@ userRouter.get("/bulk", async (req, res) => {
   });
 });
 
+userRouter.get("/me", authMiddleware, async (req, res) => {
+  const userId = req.userId;
+
+  const userInfo = await prisma.user.findFirst({
+    omit: {
+      password: true,
+    },
+    where: {
+      id: userId,
+    },
+  });
+
+  res.status(200).json({
+    user: userInfo, 
+  });
+});
+
 export default userRouter;

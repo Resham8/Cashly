@@ -1,3 +1,4 @@
+import CTASection from "../components/CtaSection";
 import FeatureSection from "../components/FeatureSection";
 import {HeroSection} from "../components/HeroSection";
 
@@ -8,7 +9,8 @@ export default function LandingPage() {
     <div className="w-full h-auto bg-surface min-h-screen">
       <NavBar />
       <HeroSection title="Your Wallet, Upgraded."/>    
-      <FeatureSection/>    
+      <FeatureSection/>  
+      <CTASection/>  
     </div>
   );
 }
